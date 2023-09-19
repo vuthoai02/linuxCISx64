@@ -645,23 +645,19 @@ useradd -D -f 30
 #5.4.3 Ensure default group for the root account is GID 0 (Scored)
 usermod -g 0 root
 #5.4.4 Ensure default user umask is 027 or more restrictive (Scored)
-if ! grep "^umask" /etc/bash.bashrc;then
+if ! grep "^umask 027" /etc/bash.bashrc;then
 	echo "umask 027" >> /etc/bash.bashrc
-	umask 027
-else 
 	umask 027
 fi
 #5.4.5 Ensure default user shell timeout is 900 seconds or less (Scored)
 if ! grep "^TMOUT" /etc/bash.bashrc; then
 	echo "TMOUT=900" >> /etc/bash.bashrc
-	export TMOUT=900
 fi
 #5.5 Ensure root login is restricted to system console (Not Scored)
 #5.6 Ensure access to the su command is restricted (Scored)
 echo "auth required pam_wheel.so use_uid" >> /etc/pam.d/su
 
 #============================ 6 System Maintenance ================================
-echo "=================== 6 System Maintenance=================== "
 #6.1 System File Permissions
 #6.1.1 Audit system file permissions (Not Scored)
 #6.1.2 Ensure permissions on /etc/passwd are configured (Scored)
@@ -755,7 +751,7 @@ for user in $users; do
 		chown -R "$user:$user" "$dir"
 	else 
 		dot_files=$(find "$dir" -maxdepth 1 -name '.*')
-		for file in $dot_files: do
+		for file in $dot_files; do
 			if [ -w "$file" ] && [ ! -h "$file" ]; then
 				chmod go-w "$dir"
 			fi
