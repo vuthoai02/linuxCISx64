@@ -566,8 +566,8 @@ chown root:root /etc/cron.allow
 chown root:root /etc/at.allow
 #5.2 SSH Server Configuration
 #5.2.1 Ensure permissions on /etc/ssh/sshd_config are configured (Scored)
-chown root:root /etc/ssh/sshd_config
-chmod og-rwx /etc/ssh/sshd_config
+chown root:root /etc/ssh/ssh_config
+chmod og-rwx /etc/ssh/ssh_config
 #5.2.2 Ensure permissions on SSH private host key files are configured (Scored)
 find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chown root:root {} \;
 find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chmod 0600 {} \;
