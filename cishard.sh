@@ -341,13 +341,13 @@ set_directive "net.ipv4.conf.all.secure_redirects" 0 "/etc/sysctl.conf"
 set_directive "net.ipv4.conf.all.secure_redirects" 0 "/etc/sysctl.conf"
 sysctl -w net.ipv4.conf.all.secure_redirects=0
 sysctl -w net.ipv6.conf.default.secure_redirects=0
-sysctl -w net.ipv4.conf.route.flush=1
+sysctl -w net.ipv4.route.flush=1
 #3.2.4 Ensure suspicious packets are logged (Scored)
 set_directive "net.ipv4.conf.all.log_martians" 1 "/etc/sysctl.conf"
 set_directive "net.ipv4.conf.default.log_martains" 1 "/etc/sysctl.conf"
 sysctl -w net.ipv4.conf.all.log_martains=1
 sysctl -w net.ipv6.conf.default.log_martains=1
-sysctl -w net.ipv4.conf.route.flush=1
+sysctl -w net.ipv4.route.flush=1
 #3.2.5 Ensure broadcast ICMP requests are ignored (Scored)
 set_directive "net.ipv4.icmp_echo_ignore_broadcasts" 1 "/etc/sysctl.conf"
 sysctl -w net.ipv4.icmp_echo_ignore_broadcasts=1
