@@ -65,7 +65,7 @@ function rm_file(){
 #1.1.1.3 Ensure mounting of hfs filesystems is disabled (Scored) 
 #1.1.1.4 Ensure mounting of hfsplus filesystems is disabled (Scored)
 #1.1.1.5 Ensure mounting of udf filesystems is disabled (Scored) 
-fs_mount=("freevxfs" "jffs2" "hfs" "hfsplus" "udf")
+fs_mount=("cramfs" "freevxfs" "jffs2" "hfs" "hfsplus" "squashfs" "udf" "fstab")
 for val in "${fs_mount[@]}"
 do
 	set_mount_fs $val
