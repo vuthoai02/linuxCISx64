@@ -429,9 +429,12 @@ apt-get -y install iptables
 #3.7 Disable IPv6 (Not Scored)
 
 #============================ 4 Logging and Auditing ==============================
-apt-get -y install auditd
 #4.1 Configure System Accounting (auditd)
 #4.1.1 Configure Data Retention
+#4.1.2 Ensure auditd is installed (Scored)
+apt-get -y install auditd audispd-plugins
+#4.1.3 Ensure auditd service is enabled (Scored)
+systemctl enable auditd
 #4.1.1.1 Ensure audit log storage size is configured (Scored)
 read -s -p "Enter audit log strorage size [MB]: " size
 set_directive "max_log_file" $size "/etc/audit/auditd.conf"
@@ -441,10 +444,6 @@ set_directive "action_mail_acct" "root" "/etc/audit/auditd.conf"
 set_directive "admin_space_left_action" "halt" "/etc/audit/auditd.conf"
 #4.1.1.3 Ensure audit logs are not automatically deleted (Scored)
 set_directive "max_log_file_action" "keep_logs" "/etc/audit/auditd.conf"
-#4.1.2 Ensure auditd is installed (Scored)
-apt-get -y install auditd audispd-plugins
-#4.1.3 Ensure auditd service is enabled (Scored)
-systemctl enable auditd
 #4.1.4 Ensure auditing for processes that start prior to auditd is enabled (Scored)
 add_parameter "GRUB_CMDLINE_LINUX=" "\"audit=1\"" "/etc/default/grub"
 update-grub
