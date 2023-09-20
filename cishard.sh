@@ -66,7 +66,7 @@ function rm_file(){
 #1.1.1.4 Ensure mounting of hfsplus filesystems is disabled (Scored)
 #1.1.1.5 Ensure mounting of udf filesystems is disabled (Scored) 
 fs_mount=("cramfs" "freevxfs" "jffs2" "hfs" "hfsplus" "squashfs" "udf" "fstab")
-for val in "${fs_mount[@]}"
+for val in ${fs_mount[@]};
 do
 	set_mount_fs $val
 done
@@ -86,7 +86,7 @@ systemctl enable tmp.mount
 #1.1.16 Ensure nodev option set on /dev/shm partition (Scored)
 #1.1.17 Ensure nodev option set on /shm/dev partition (Scored)
 partition=("tmp" "var/tmp" "dev/shm")
-for val in "${partition[@]}"
+for val in ${partition[@]};
 do
 	option_partition $val
 done
