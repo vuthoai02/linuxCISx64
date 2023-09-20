@@ -605,7 +605,7 @@ add_parameter "ClientAliveCountMax " 0 "/etc/ssh/sshd_config"
 add_parameter "LoginGraceTime " 60 "/etc/ssh/sshd_config"
 #5.2.18 Ensure SSH access is limited (Scored)
 read -s -p "Enter user allow ssh access: " userl
-read -s -p "Enter group allow ssh access: " groupl
+read -s -p "\nEnter group allow ssh access: " groupl
 add_parameter "AllowUsers " "$userl" "/etc/ssh/sshd_config"
 add_parameter "AllowGroups " "$groupl" "/etc/ssh/sshd_config"
 #5.2.19 Ensure SSH warning banner is configured (Scored)
