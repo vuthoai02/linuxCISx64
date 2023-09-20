@@ -133,7 +133,7 @@ if grep ^root:[*\!]: /etc/shadow; then
 fi
 #1.5 Additional Process Harderning#
 #1.5.1 Ensure core dumps are restricted (Scored)
-if ! grep "hard core" /etc/security/limits.conf; then sed -i "$ a hard core 0"; fi
+if ! grep "hard core" /etc/security/limits.conf; then sed -i "$ a hard core 0" /etc/security/limits.conf; fi
 set_directive "fs.suid_dumpable" 0 "/etc/sysctl.conf"
 sysctl -w fs.suid_dumpable=0
 #1.5.2 Ensure XD/NX support is enabled (Scored)
