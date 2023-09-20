@@ -119,7 +119,7 @@ if ! grep -o "password" /etc/grub.d/00_header;then
 	echo "[Enter username:]"
 	read username
 	read -s -p "\n[Enter your password:]" password
-	encryptpass=$(grub-mkpasswd-pbkdf2 <<< "$password")
+	encryptpass=$(echo "$password" | grub-mkpasswd-pbkdf2 --stdin)
 	echo "cat <<EOF
 	set superusers=\"$username\"
 	password_pbkdf2 $username $encryptpass
