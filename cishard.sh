@@ -107,7 +107,7 @@ systemctl disable autofs
 apt-get -y install aide aide-common
 aideinit
 #1.3.2 Ensure filesystem intergrity is regularly checked (Scored)
-sed -i "$ a 0 5 * * * /usr/sbin/aide --check"
+sed -i "$ a 0 5 * * * /usr/sbin/aide --check" >> /etc/crontab
 #1.4 Secure boot settings#
 #1.4.1 Ensure permissions on bootloader config are configured (Scored)
 chown root:root /boot/grub/grub.cfg
