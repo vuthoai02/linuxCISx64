@@ -118,8 +118,8 @@ echo "########Create bootloader password########"
 if ! grep -o "password" /etc/grub.d/00_header;then
 	echo "[Enter username:]"
 	read username
-	read -s -p "\n[Enter your password:]" password
-	encryptpass=$(echo "$password" | grub-mkpasswd-pbkdf2 --stdin)
+	echo "[Enter password 2 times (Enter the 1st time, then enter again the 2nd time)]"
+	encryptpass=$(grub-mkpasswd-pbkdf2 | grep -oP "(?<=PBKDF2 hash of your password is ).*")
 	echo "cat <<EOF
 	set superusers=\"$username\"
 	password_pbkdf2 $username $encryptpass
