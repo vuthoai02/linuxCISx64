@@ -64,8 +64,9 @@ function rm_file(){
 #1.1.1.2 Ensure mounting of jffs2 filesystems is disabled (Scored) 
 #1.1.1.3 Ensure mounting of hfs filesystems is disabled (Scored) 
 #1.1.1.4 Ensure mounting of hfsplus filesystems is disabled (Scored)
-#1.1.1.5 Ensure mounting of udf filesystems is disabled (Scored) 
-fs_mount=("cramfs" "freevxfs" "jffs2" "hfs" "hfsplus" "squashfs" "udf" "fstab")
+#1.1.1.5 Ensure mounting of udf filesystems is disabled (Scored)
+#1.1.23 Disable USB Storage (Scored)
+fs_mount=("cramfs" "freevxfs" "jffs2" "hfs" "hfsplus" "squashfs" "udf" "fstab" "usb-storage")
 for val in ${fs_mount[@]};
 do
 	set_mount_fs $val
