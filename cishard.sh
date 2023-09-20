@@ -143,9 +143,8 @@ prelink -ua
 apt-get remove prelink
 #1.6 Madatory Access Control
 #1.6.1 Ensure Madatory Access control software is installed
-if ! dpkg -s libselinux1; then
-	apt-get install libselinux1
-fi
+apt-get install libselinux1
+apt-get install apparmor
 #1.6.2 Configure SELinux
 #1.6.2.1 Ensure SELInux is disabled in booloader configuration
 sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT=/ c GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\"' /etc/default/grub
