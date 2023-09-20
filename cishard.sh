@@ -115,7 +115,7 @@ chmod og-rwx /boot/grub/grub.cfg
 #1.4.2 Ensure bootloader password is set (Scored)
 echo "########Create bootloader password########"
 
-if grep -o "password" /etc/grub.d/00_header;then
+if ! grep -o "password" /etc/grub.d/00_header;then
 	echo "[Enter username:]"
 	read username
 	read -s -p "\n[Enter your password:]" password
