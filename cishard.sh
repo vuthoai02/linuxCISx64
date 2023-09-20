@@ -116,7 +116,7 @@ echo "########Create bootloader password########"
 if grep -o "password" /etc/grub.d/00_header;then
 	echo "[Enter username:]"
 	read username
-	read -s -p "[Enter your password:]" password
+	read -s -p "\n[Enter your password:]" password
 	encryptpass=$(grub-mkpasswd-pbkdf2 <<< "$password")
 	echo "cat <<<EOF
 	set superusers=\"$username\"
