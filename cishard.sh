@@ -299,135 +299,6 @@ apt-get -y remove talk
 apt-get -y remove telnet
 #2.3.5 Ensure LDAP client is not installed (Scored)
 apt-get -y remove openldap-clients
-
-#================================= 3 Network Configuration ================================
-#3.1.1 Ensure Ip forwarding is disabled (Scored)
-set_directive "net.ipv4.ip_forward" 0 "/etc/sysctl.conf"
-set_directive "net.ipv6.conf.all.forwarding" 0 "/etc/sysctl.conf"
-sysctl -w net.ipv4.ip_forward=0
-sysctl -w net.ipv6.all.forwarding=0
-sysctl -w net.ipv4.route.flush=1
-sysctl -w net.ipv6.route.flush=1
-#3.1.2 Ensure packet redirect sending is disabled (Scored)
-set_directive "net.ipv4.conf.all.send_redirects" 0 "/etc/sysctl.conf"
-set_directive "net.ipv6.conf.default.send_redirects" 0 "/etc/sysctl.conf"
-sysctl -w net.ipv4.conf.all.send_redirects=0
-sysctl -w net.ipv4.conf.default.send_redirects=0
-sysctl -w net.ipv4.route.flush=1
-#3.2 Network parameters (Host and Router)
-#3.2.1 Ensure source routed packets are not accepted (Scored)
-set_directive "net.ipv4.conf.all.accept_source_route" 0 "/etc/sysctl.conf"
-set_directive "net.ipv4.conf.default.accept_source_route" 0 "/etc/sysctl.conf"
-set_directive "net.ipv6.conf.all.accept_source_route" 0 "/etc/sysctl.conf"
-set_directive "net.ipv4.conf.default.accept_source_route" 0 "/etc/sysctl.conf"
-sysctl -w net.ipv4.conf.all.accept_source_route=0
-sysctl -w net.ipv4.conf.default.accept_source_route=0
-sysctl -w net.ipv6.conf.all.accept_source_route=0
-sysctl -w net.ipv6.conf.default.accept_source_route=0
-sysctl -w net.ipv4.route.flush=1
-sysctl -w net.ipv6.route.flush=1
-#3.2.2 Ensure ICMP redirects are not accepted (Scored)
-set_directive "net.ipv4.conf.all.accept_redirects" 0 "/etc/sysctl.conf"
-set_directive "net.ipv4.conf.default.accept_redirects" 0 "/etc/sysctl.conf"
-set_directive "net.ipv6.conf.all.accept_redirects" 0 "/etc/sysctl.conf"
-set_directive "net.ipv6.conf.default.accept_redirects" 0 "/etc/sysctl.conf"
-sysctl -w net.ipv4.conf.all.accept_redirects=0
-sysctl -w net.ipv4.conf.default.accept_redirects=0
-sysctl -w net.ipv6.conf.all.accept_redirects=0
-sysctl -w net.ipv6.conf.default.accept_redirects=0
-sysctl -w net.ipv4.route.flush=1
-sysctl -w net.ipv6.route.flush=1
-#3.2.3 Ensure secure ICMP redirects are not accepted (Scored)
-set_directive "net.ipv4.conf.all.secure_redirects" 0 "/etc/sysctl.conf"
-set_directive "net.ipv4.conf.all.secure_redirects" 0 "/etc/sysctl.conf"
-sysctl -w net.ipv4.conf.all.secure_redirects=0
-sysctl -w net.ipv6.conf.default.secure_redirects=0
-sysctl -w net.ipv4.route.flush=1
-#3.2.4 Ensure suspicious packets are logged (Scored)
-set_directive "net.ipv4.conf.all.log_martians" 1 "/etc/sysctl.conf"
-set_directive "net.ipv4.conf.default.log_martains" 1 "/etc/sysctl.conf"
-sysctl -w net.ipv4.conf.all.log_martains=1
-sysctl -w net.ipv6.conf.default.log_martains=1
-sysctl -w net.ipv4.route.flush=1
-#3.2.5 Ensure broadcast ICMP requests are ignored (Scored)
-set_directive "net.ipv4.icmp_echo_ignore_broadcasts" 1 "/etc/sysctl.conf"
-sysctl -w net.ipv4.icmp_echo_ignore_broadcasts=1
-sysctl -w net.ipv4.route.flush=1
-#3.2.6 Ensure bogus ICMP responses are ignored (Scored)
-set_directive "net.ipv4.icmp_ignore_bogus_error_responses" 1 "/etc/sysctl.conf"
-sysctl -w net.ipv4.icmp_ignore_bogus_error_reponses=1
-sysctl -w net.ipv4.route.flush=1
-#3.2.7 Ensure Reverse Path Filtering is enabled (Scored)
-set_directive "net.ipv4.conf.all.rp_filter" 1 "/etc/sysctl.conf"
-set_directive "net.ipv4.conf.default.rp_filter" 1 "/etc/sysctl.conf"
-sysctl -w net.ipv4.conf.all.rp_filter=1
-sysctl -w net.ipv4.conf.default.rp_filter=1
-sysctl -w net.ipv4.route.flush=1
-#3.2.8 Ensure TCP SYN Cookies is enabled (Scored)
-set_directive "net.ipv4.tcp_syncookies" 1 "/etc/sysctl.conf"
-sysctl -w net.ipv4.tcp_syncookies=1
-sysctl -w net.ipv4.route.flush=1
-#3.2.9 Ensure IPv6 router advertisements are not accepted (Scored)
-set_directive "net.ipv6.conf.all.accept_ra" 0 "/etc/sysctl.conf"
-set_directive "net.ipv6.conf.all.accept_ra" 0 "/etc/sysctl.conf"
-sysctl -w net.ipv4.conf.all.accept_ra=0
-sysctl -w net.ipv6.conf.default.accept_ra=0
-sysctl -w net.ipv4.route.flush=1
-#3.3 TCP wrappers
-#3.3.1 Ensure TCP Wrappers is installed (Not Scored)
-apt-get install tcpd
-#3.3.2 Ensure /etc/hosts.allow is configured (Not Scored)
-if ! grep "^192.168" /etc/hosts.allow; then
-	read -s -p "Enter Hosts.allow: " hosts
-	echo "ALL:$hosts" >> /etc/hosts.allow
-fi
-#3.3.3 Ensure /etc/hosts.deny is configured (Not Scored)
-if ! grep "ALL:ALL" /etc/hosts.deny; then
-	echo "ALL:ALL" >> /etc/hosts.deny
-fi
-#3.3.4 Ensure permissions on /etc/hosts.allow are configured (Scored)
-chown root:root /etc/hosts.allow
-chmod 644 /etc/hosts.allow
-#3.3.5 Ensure permissions on /etc/hosts.deny are configured (Scored)
-chown root:root /etc/hosts.deny
-chmod 644 /etc/hosts.deny
-#3.4 Uncommon Network Protocols
-#3.4.1 Ensure DCCP is disabled (Scored)
-set_mount_fs "dccp"
-#3.4.2 Ensure SCTP is disabled (Scored)
-set_mount_fs "sctp"
-#3.4.3 Ensure RDS is disabled (Scored)
-set_mount_fs "rds"
-#3.4.4 Ensure TIPC is disabled (Scored)
-set_mount_fs "tipc"
-#3.5 Firewall configuration
-#3.5.1 Configure IPv6 ip6tables
-#3.5.1.1 Ensure IPv6 default deny firewall policy (Scored)
-ip6tables -P INPUT DROP
-ip6tables -P OUTPUT DROP
-ip6tables -P FORWARD DROP
-#3.5.1.2 Ensure IPv6 loopback traffic is configured (Scored)
-ip6tables -A INPUT -i lo -j ACCEPT
-ip6tables -A OUTPUT -o lo -j ACCEPT
-ip6tables -A INPUT -s ::1 -j ACCEPT
-#3.5.1.3 Ensure IPv6 outbound and established connections are configured (Not Scored)
-#3.5.1.4 Ensure IPv6 firewall rules exist for all open ports (Not Scored)
-#3.5.2 Configure IPv4 iptables
-#3.5.2.1 Ensure default deny firewall policy (Scored)
-iptables -P INPUT DROP
-iptables -P OUTPUT DROP
-iptables -P FORWARD DROP
-#3.5.2.2 Ensure loopback traffic is configured (Scored)
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
-iptables -A INPUT -s 127.0.0.0/8 -j DROP
-#3.5.2.3 Ensure outbound and established connections are configured (Not Scored)
-#3.5.2.4 Ensure firewall rules exist for all open ports (Scored)
-#3.5.3 Ensure iptables is installed (Scored)
-apt-get -y install iptables
-#3.6 Ensure wireless interfaces are disabled (Not Scored)
-#3.7 Disable IPv6 (Not Scored)
-
 #============================ 4 Logging and Auditing ==============================
 #4.1 Configure System Accounting (auditd)
 #4.1.1 Configure Data Retention
@@ -770,6 +641,135 @@ rm_file ".rhosts"
 #6.2.18 Ensure no duplicate user names exist (Scored)
 #6.2.19 Ensure no duplicate group names exist (Scored)
 #6.2.20 Ensure shadow group is empty (Scored)
+
+#================================= 3 Network Configuration ================================
+#3.1.1 Ensure Ip forwarding is disabled (Scored)
+set_directive "net.ipv4.ip_forward" 0 "/etc/sysctl.conf"
+set_directive "net.ipv6.conf.all.forwarding" 0 "/etc/sysctl.conf"
+sysctl -w net.ipv4.ip_forward=0
+sysctl -w net.ipv6.all.forwarding=0
+sysctl -w net.ipv4.route.flush=1
+sysctl -w net.ipv6.route.flush=1
+#3.1.2 Ensure packet redirect sending is disabled (Scored)
+set_directive "net.ipv4.conf.all.send_redirects" 0 "/etc/sysctl.conf"
+set_directive "net.ipv6.conf.default.send_redirects" 0 "/etc/sysctl.conf"
+sysctl -w net.ipv4.conf.all.send_redirects=0
+sysctl -w net.ipv4.conf.default.send_redirects=0
+sysctl -w net.ipv4.route.flush=1
+#3.2 Network parameters (Host and Router)
+#3.2.1 Ensure source routed packets are not accepted (Scored)
+set_directive "net.ipv4.conf.all.accept_source_route" 0 "/etc/sysctl.conf"
+set_directive "net.ipv4.conf.default.accept_source_route" 0 "/etc/sysctl.conf"
+set_directive "net.ipv6.conf.all.accept_source_route" 0 "/etc/sysctl.conf"
+set_directive "net.ipv4.conf.default.accept_source_route" 0 "/etc/sysctl.conf"
+sysctl -w net.ipv4.conf.all.accept_source_route=0
+sysctl -w net.ipv4.conf.default.accept_source_route=0
+sysctl -w net.ipv6.conf.all.accept_source_route=0
+sysctl -w net.ipv6.conf.default.accept_source_route=0
+sysctl -w net.ipv4.route.flush=1
+sysctl -w net.ipv6.route.flush=1
+#3.2.2 Ensure ICMP redirects are not accepted (Scored)
+set_directive "net.ipv4.conf.all.accept_redirects" 0 "/etc/sysctl.conf"
+set_directive "net.ipv4.conf.default.accept_redirects" 0 "/etc/sysctl.conf"
+set_directive "net.ipv6.conf.all.accept_redirects" 0 "/etc/sysctl.conf"
+set_directive "net.ipv6.conf.default.accept_redirects" 0 "/etc/sysctl.conf"
+sysctl -w net.ipv4.conf.all.accept_redirects=0
+sysctl -w net.ipv4.conf.default.accept_redirects=0
+sysctl -w net.ipv6.conf.all.accept_redirects=0
+sysctl -w net.ipv6.conf.default.accept_redirects=0
+sysctl -w net.ipv4.route.flush=1
+sysctl -w net.ipv6.route.flush=1
+#3.2.3 Ensure secure ICMP redirects are not accepted (Scored)
+set_directive "net.ipv4.conf.all.secure_redirects" 0 "/etc/sysctl.conf"
+set_directive "net.ipv4.conf.all.secure_redirects" 0 "/etc/sysctl.conf"
+sysctl -w net.ipv4.conf.all.secure_redirects=0
+sysctl -w net.ipv6.conf.default.secure_redirects=0
+sysctl -w net.ipv4.route.flush=1
+#3.2.4 Ensure suspicious packets are logged (Scored)
+set_directive "net.ipv4.conf.all.log_martians" 1 "/etc/sysctl.conf"
+set_directive "net.ipv4.conf.default.log_martains" 1 "/etc/sysctl.conf"
+sysctl -w net.ipv4.conf.all.log_martains=1
+sysctl -w net.ipv6.conf.default.log_martains=1
+sysctl -w net.ipv4.route.flush=1
+#3.2.5 Ensure broadcast ICMP requests are ignored (Scored)
+set_directive "net.ipv4.icmp_echo_ignore_broadcasts" 1 "/etc/sysctl.conf"
+sysctl -w net.ipv4.icmp_echo_ignore_broadcasts=1
+sysctl -w net.ipv4.route.flush=1
+#3.2.6 Ensure bogus ICMP responses are ignored (Scored)
+set_directive "net.ipv4.icmp_ignore_bogus_error_responses" 1 "/etc/sysctl.conf"
+sysctl -w net.ipv4.icmp_ignore_bogus_error_reponses=1
+sysctl -w net.ipv4.route.flush=1
+#3.2.7 Ensure Reverse Path Filtering is enabled (Scored)
+set_directive "net.ipv4.conf.all.rp_filter" 1 "/etc/sysctl.conf"
+set_directive "net.ipv4.conf.default.rp_filter" 1 "/etc/sysctl.conf"
+sysctl -w net.ipv4.conf.all.rp_filter=1
+sysctl -w net.ipv4.conf.default.rp_filter=1
+sysctl -w net.ipv4.route.flush=1
+#3.2.8 Ensure TCP SYN Cookies is enabled (Scored)
+set_directive "net.ipv4.tcp_syncookies" 1 "/etc/sysctl.conf"
+sysctl -w net.ipv4.tcp_syncookies=1
+sysctl -w net.ipv4.route.flush=1
+#3.2.9 Ensure IPv6 router advertisements are not accepted (Scored)
+set_directive "net.ipv6.conf.all.accept_ra" 0 "/etc/sysctl.conf"
+set_directive "net.ipv6.conf.all.accept_ra" 0 "/etc/sysctl.conf"
+sysctl -w net.ipv4.conf.all.accept_ra=0
+sysctl -w net.ipv6.conf.default.accept_ra=0
+sysctl -w net.ipv4.route.flush=1
+#3.3 TCP wrappers
+#3.3.1 Ensure TCP Wrappers is installed (Not Scored)
+apt-get install tcpd
+#3.3.2 Ensure /etc/hosts.allow is configured (Not Scored)
+if ! grep "^192.168" /etc/hosts.allow; then
+	read -s -p "Enter Hosts.allow: " hosts
+	echo "ALL:$hosts" >> /etc/hosts.allow
+fi
+#3.3.3 Ensure /etc/hosts.deny is configured (Not Scored)
+if ! grep "ALL:ALL" /etc/hosts.deny; then
+	echo "ALL:ALL" >> /etc/hosts.deny
+fi
+#3.3.4 Ensure permissions on /etc/hosts.allow are configured (Scored)
+chown root:root /etc/hosts.allow
+chmod 644 /etc/hosts.allow
+#3.3.5 Ensure permissions on /etc/hosts.deny are configured (Scored)
+chown root:root /etc/hosts.deny
+chmod 644 /etc/hosts.deny
+#3.4 Uncommon Network Protocols
+#3.4.1 Ensure DCCP is disabled (Scored)
+set_mount_fs "dccp"
+#3.4.2 Ensure SCTP is disabled (Scored)
+set_mount_fs "sctp"
+#3.4.3 Ensure RDS is disabled (Scored)
+set_mount_fs "rds"
+#3.4.4 Ensure TIPC is disabled (Scored)
+set_mount_fs "tipc"
+#3.5 Firewall configuration
+#3.5.1 Configure IPv6 ip6tables
+#3.5.1.1 Ensure IPv6 default deny firewall policy (Scored)
+ip6tables -P INPUT DROP
+ip6tables -P OUTPUT DROP
+ip6tables -P FORWARD DROP
+#3.5.1.2 Ensure IPv6 loopback traffic is configured (Scored)
+ip6tables -A INPUT -i lo -j ACCEPT
+ip6tables -A OUTPUT -o lo -j ACCEPT
+ip6tables -A INPUT -s ::1 -j ACCEPT
+#3.5.1.3 Ensure IPv6 outbound and established connections are configured (Not Scored)
+#3.5.1.4 Ensure IPv6 firewall rules exist for all open ports (Not Scored)
+#3.5.2 Configure IPv4 iptables
+#3.5.2.3 Ensure outbound and established connections are configured (Not Scored)
+#3.5.2.4 Ensure firewall rules exist for all open ports (Scored)
+#3.5.3 Ensure iptables is installed (Scored)
+apt-get -y install iptables
+#3.5.2.1 Ensure default deny firewall policy (Scored)
+iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+iptables -P FORWARD DROP
+#3.5.2.2 Ensure loopback traffic is configured (Scored)
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+iptables -A INPUT -s 127.0.0.0/8 -j DROP
+#3.6 Ensure wireless interfaces are disabled (Not Scored)
+#3.7 Disable IPv6 (Not Scored)
+
 ############################################################
 #Records the root user's command line execution history
 ehco "
@@ -778,3 +778,6 @@ HISTSIZE=1000000
 HISTTIMEFORMAT='%F %T '
 PROMPT_COMMAND='history -a'
 " >> /root/.bashrc
+echo "RESTART SYSTEM"
+sleep 20
+shutdown -r now
