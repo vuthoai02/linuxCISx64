@@ -447,49 +447,49 @@ find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chmod 0600 {} \;
 find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chmod 0644 {} \;
 find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chown root:root {} \;
 #5.2.4 Ensure SSH Protocol is set to 2 (Scored)
-add_parameter "Protocol " 2 "/etc/ssh/sshd_config"
+add_parameter "Protocol " 2 "/etc/ssh/ssh_config"
 #5.2.5 Ensure SSH LogLevel is appropriate (Scored)
-add_parameter "LogLevel " "INFO" "/etc/ssh/sshd_config"
+add_parameter "LogLevel " "INFO" "/etc/ssh/ssh_config"
 #5.2.6 Ensure SSH X11 forwarding is disabled (Scored)
-add_parameter "X11Forwarding " "no" "/etc/ssh/sshd_config"
+add_parameter "X11Forwarding " "no" "/etc/ssh/ssh_config"
 #5.2.7 Ensure SSH MaxAuthTries is set to 4 or less (Scored)
-add_parameter "MaxAuthTries " 4 "/etc/ssh/sshd_config"
+add_parameter "MaxAuthTries " 4 "/etc/ssh/ssh_config"
 #5.2.8 Ensure SSH IgnoreRhosts is enabled (Scored)
-add_parameter "IgnoreRhosts " "yes" "/etc/ssh/sshd_config"
+add_parameter "IgnoreRhosts " "yes" "/etc/ssh/ssh_config"
 #5.2.9 Ensure SSH HostbasedAuthentication is disabled (Scored)
-add_parameter "HostbasedAuthentication " "no" "/etc/ssh/sshd_config"
+add_parameter "HostbasedAuthentication " "no" "/etc/ssh/ssh_config"
 #5.2.10 Ensure SSH root login is disabled (Scored)
-add_parameter "PermitRootLogin " "no" "/etc/ssh/sshd_config"
+add_parameter "PermitRootLogin " "no" "/etc/ssh/ssh_config"
 #5.2.11 Ensure SSH PermitEmptyPasswords is disabled (Scored)
-add_parameter "PermitEmptyPasswords " "no" "/etc/ssh/sshd_config"
+add_parameter "PermitEmptyPasswords " "no" "/etc/ssh/ssh_config"
 #5.2.12 Ensure SSH PermitUserEnvironment is disabled (Scored)
-add_parameter "PermitUserEnvironment " "no" "/etc/ssh/sshd_config"
+add_parameter "PermitUserEnvironment " "no" "/etc/ssh/ssh_config"
 #5.2.13 Ensure only strong Ciphers are used (Scored)
-add_parameter "Ciphers " "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr" "/etc/ssh/sshd_config"
+add_parameter "Ciphers " "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr" "/etc/ssh/ssh_config"
 #5.2.14 Ensure only strong MAC algorithms are used (Scored)
-add_parameter "MACs " "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512,hmac-sha2-256" "/etc/ssh/sshd_config"
+add_parameter "MACs " "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512,hmac-sha2-256" "/etc/ssh/ssh_config"
 #5.2.15 Ensure only strong Key Exchange algorithms are used (Scored)
-add_parameter "KexAlgorithms " "curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256" "/etc/ssh/sshd_config"
+add_parameter "KexAlgorithms " "curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256" "/etc/ssh/ssh_config"
 #5.2.16 Ensure SSH Idle Timeout Interval is configured (Scored)
-add_parameter "ClientAliveInterval " 300 "/etc/ssh/sshd_config"
-add_parameter "ClientAliveCountMax " 0 "/etc/ssh/sshd_config"
+add_parameter "ClientAliveInterval " 300 "/etc/ssh/ssh_config"
+add_parameter "ClientAliveCountMax " 0 "/etc/ssh/ssh_config"
 #5.2.17 Ensure SSH LoginGraceTime is set to one minute or less (Scored)
-add_parameter "LoginGraceTime " 60 "/etc/ssh/sshd_config"
+add_parameter "LoginGraceTime " 60 "/etc/ssh/ssh_config"
 #5.2.18 Ensure SSH access is limited (Scored)
 read -s -p "Enter user allow ssh access: " userl
 read -s -p "\nEnter group allow ssh access: " groupl
-add_parameter "AllowUsers " "$userl" "/etc/ssh/sshd_config"
-add_parameter "AllowGroups " "$groupl" "/etc/ssh/sshd_config"
+add_parameter "AllowUsers " "$userl" "/etc/ssh/ssh_config"
+add_parameter "AllowGroups " "$groupl" "/etc/ssh/ssh_config"
 #5.2.19 Ensure SSH warning banner is configured (Scored)
-add_parameter "Banner " "/etc/issue.net" "/etc/ssh/sshd_config"
+add_parameter "Banner " "/etc/issue.net" "/etc/ssh/ssh_config"
 #5.2.20 Ensure SSH PAM is enabled (Scored)
-add_parameter "UsePAM " "yes" "/etc/ssh/sshd_config"
+add_parameter "UsePAM " "yes" "/etc/ssh/ssh_config"
 #5.2.21 Ensure SSH AllowTcpForwarding is disabled (Scored)
-add_parameter "AllowTcpForwarding " "no" "/etc/ssh/sshd_config"
+add_parameter "AllowTcpForwarding " "no" "/etc/ssh/ssh_config"
 #5.2.22 Ensure SSH MaxStartups is configured (Scored)
-add_parameter "maxstartups " "10:30:60" "/etc/ssh/sshd_config"
+add_parameter "maxstartups " "10:30:60" "/etc/ssh/ssh_config"
 #5.2.23 Ensure SSH MaxSessions is set to 4 or less (Scored)
-add_parameter "MaxSessions " 4 "/etc/ssh/sshd_config"
+add_parameter "MaxSessions " 4 "/etc/ssh/ssh_config"
 #5.3 Configure PAM
 apt-get install libpam0g-dev
 #5.3.1 Ensure password creation requirements are configured (Scored)
