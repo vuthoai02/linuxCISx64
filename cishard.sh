@@ -493,7 +493,7 @@ add_parameter "MaxSessions " 4 "/etc/ssh/ssh_config"
 #5.3 Configure PAM
 apt-get install libpam0g-dev
 #5.3.1 Ensure password creation requirements are configured (Scored)
-sed -i "/^# milen/ c milen = 14" /etc/security/pwquality.conf
+sed -i "/^# minlen/ c minlen = 14" /etc/security/pwquality.conf
 sed -i "/^# dcredit/ c dcredit = -1" /etc/security/pwquality.conf
 sed -i "/^# ucredit/ c ucredit = -1" /etc/security/pwquality.conf
 sed -i "/^# ocredit/ c ocredit = -1" /etc/security/pwquality.conf
